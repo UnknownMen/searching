@@ -13,20 +13,79 @@ namespace diplom_project
 {
     public partial class countFiles : Form
     {
+
         public countFiles()
         {
             InitializeComponent();
-            label1.Text = "0";
+            //label1.Text = "0";
 
+            //var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
+
+
+            //var files = Directory.GetFiles(d);//получили все файлы в ProgramFiles
+            //var folders = Directory.GetDirectories(d);//получили все папки в ProgramFiles
+
+
+            //foreach (var i in files)
+            //{
+            //    listBox1.Items.Add(i);//вывели их в ListBox
+            //}
+
+            List<Model> files = new List<Model>();
             var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
 
-            var files = Directory.GetFiles(d);//получили все файлы в ProgramFiles
-            var folders = Directory.GetDirectories(d);
+            GetAll(d, files);
 
-            foreach (var i in files)
-            {
-                listBox1.Items.Add(i);//вывели их в ListBox
-            }
+            //foreach (var i in files)
+            //    listBox1.Items.Add(i);
+
+            //listBox1.DataSource = files;
+
+            dataGridView1.DataSource = files;
         }
+
+        //public string[] getAllFiles ()
+        //{
+        //    string[] allFilse; 
+        //    var sd = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+        //    recursFinder();
+
+
+        //    return allFilse;
+        //}
+
+        //public void recursFinder(string []files)
+        //{
+            
+
+        //}
+
+
+        void GetAll(string dir, List<Model> data)
+        {
+            string[] files = null;
+            try
+            {
+                files = Directory.GetFiles(dir); //получили все файлы в ProgramFiles
+            } catch (Exception ex) { }
+            if (files != null)
+                foreach(var e in files)
+                data.Add(new Model { filename = e });
+
+            string[] folders = null;
+            try
+            {
+                folders = Directory.GetDirectories(dir);//получили все папки в ProgramFiles
+            }
+            catch
+            {
+                return;
+            }
+
+            if (folders != null)
+                foreach (var f in folders)
+                    GetAll(f, data);
+        }
+
     }
 }
