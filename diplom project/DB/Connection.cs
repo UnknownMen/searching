@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace diplom_project.DB
 {
     class Connection: DbContext
@@ -15,5 +16,7 @@ namespace diplom_project.DB
         {
             optionsBuilder.UseSqlite("Data Source=my.db");
         }
+
+        
     }
 }
