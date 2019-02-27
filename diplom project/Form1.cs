@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using diplom_project.DB;
 
 namespace diplom_project
 {
@@ -16,8 +17,7 @@ namespace diplom_project
 
         public countFiles()
         {
-            InitializeComponent();
-            //label1.Text = "0";
+            InitializeComponent();           label1.Text = "0";
 
             //var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
 
@@ -31,34 +31,26 @@ namespace diplom_project
             //    listBox1.Items.Add(i);//вывели их в ListBox
             //}
 
-            List<Model> files = new List<Model>();
-            var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
 
-            GetAll(d, files);
 
             //foreach (var i in files)
             //    listBox1.Items.Add(i);
 
             //listBox1.DataSource = files;
 
-            dataGridView1.DataSource = files;
+
+            //List<Model> files = new List<Model>();
+            //var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
+
+            //GetAll(d, files);
+
+            //dataGridView1.DataSource = files;
+
+
+            Connection c = new Connection();
+            var v = c.Files.ToArray();
         }
 
-        //public string[] getAllFiles ()
-        //{
-        //    string[] allFilse; 
-        //    var sd = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-        //    recursFinder();
-
-
-        //    return allFilse;
-        //}
-
-        //public void recursFinder(string []files)
-        //{
-            
-
-        //}
 
 
         void GetAll(string dir, List<Model> data)
@@ -70,7 +62,7 @@ namespace diplom_project
             } catch (Exception ex) { }
             if (files != null)
                 foreach(var e in files)
-                data.Add(new Model { filename = e });
+                data.Add(new Model { Filename = e });
 
             string[] folders = null;
             try
