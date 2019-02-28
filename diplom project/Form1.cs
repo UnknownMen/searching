@@ -15,56 +15,61 @@ namespace diplom_project
 {
     public partial class countFiles : Form
     {
-        
+        List<Model> files = new List<Model>();
+        static int ccx;
+        static Thread current;
+
+        static Label l;
+
         public countFiles()
         {
             InitializeComponent();
-            label1.Text = "0";
+            current = Thread.CurrentThread;
+            l = label1;
+
+            label1.Text = ccx.ToString();
+
 
             //var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
 
-
             //var files = Directory.GetFiles(d);//получили все файлы в ProgramFiles
             //var folders = Directory.GetDirectories(d);//получили все папки в ProgramFiles
-
 
             //foreach (var i in files)
             //{
             //    listBox1.Items.Add(i);//вывели их в ListBox
             //}
 
-
-
             //foreach (var i in files)
             //    listBox1.Items.Add(i);
 
-            //listBox1.DataSource = files;
+            //listBox1.DataSource = files;                       
 
-
-            List<Model> files = new List<Model>();
-            var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
-
-            Thread t = new Thread(new ThreadStart(GetAll));
-            t.Start();
-                
+            Thread t = new Thread(startThread);
+            t.Start();                
                 
             //GetAll(d, files);
 
             dataGridView1.DataSource = files;
 
+            
 
             //Connection c = new Connection();
             //var v = c.Files.ToArray();
         }
-
-        public void MyDelegate (string i, List<Model> data)
+        
+        void startThread()
         {
-
+            var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
+            GetAll(d, files);
+           
         }
 
+        public delegate void setlabel(int a);
 
        static void GetAll(string dir, List<Model> data)
         {
+           
             string[] files = null;
             try
             {
@@ -74,8 +79,9 @@ namespace diplom_project
                 foreach (var e in files)
                 {
                     var m = new Model { Filename = e };
-                    var d = m.GetHash();
-                    data.Add(m);
+                    //var d = m.GetHash();
+                    int v = m.Id;
+                    data.Add(m);                    
                 }
 
             string[] folders = null;
@@ -88,10 +94,17 @@ namespace diplom_project
                 return;
             }
 
+            ccx =+ data.Count();
+
+            l.BeginInvoke(new setlabel(a => { l.Text = a.ToString(); }), new object[] { ccx });
+
             if (folders != null)
                 foreach (var f in folders)
                     GetAll(f, data);
+            
         }
+
+
 
     }
 }
