@@ -17,8 +17,7 @@ namespace diplom_project
     {
         List<Model> files = new List<Model>();
         static int ccx;
-        static Thread current;
-        
+        static Thread current;        
 
         static Label l;
         static Label l2;
@@ -54,7 +53,7 @@ namespace diplom_project
                 
             //GetAll(d, files);
 
-            //dataGridView1.DataSource = files;            
+            dataGridView1.DataSource = files;            
 
             //Connection c = new Connection();
             //var v = c.Files.ToArray();
@@ -62,7 +61,7 @@ namespace diplom_project
         
         void startThread()
         {
-            var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
+            var d = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);//получили все папки в ProgramFiles
             GetAll(d, files);
 
             w.BeginInvoke(new setProgressBar(b => { w.Minimum = 0; w.Maximum = b; }), new object[] { files.Count });
@@ -72,15 +71,11 @@ namespace diplom_project
             {
                 file.Hash = file.GetHash();
                 i++;
-
                 w.BeginInvoke(new setProgressBar(b => { w.Value = b; l2.Text = b.ToString(); }), new object[] { i });
             }
 
-            //progressBar1.Minimum = 0;
-            //progressBar1.Maximum = ccx;
-
-
         }
+
 
         public delegate void setlabel(int a);
         public delegate void setProgressBar(int b);
@@ -114,19 +109,30 @@ namespace diplom_project
 
             ccx =+ data.Count();
 
-
             l.BeginInvoke(new setlabel(a => { l.Text = a.ToString(); }), new object[] { ccx });
             //w.BeginInvoke(new setProgressBar( b => { w.Minimum = 0; w.Maximum = b; w.Value = 0; }), new object[] { ccx });
-
 
             if (folders != null)
                 foreach (var f in folders)
                     GetAll(f, data);
 
-
-
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string NameOfFind = "";
+            NameOfFind = textBox1.ToString();
+            List<Model> finderFiles = new List<Model>();
+            foreach (var file in files)
+            {
+                if( NameOfFind.Equals(file.ShortName))
+                {
+                    finderFiles.Add(file);
+                }
+            }
 
+            dataGridView1.DataSource = finderFiles;
+
+        }
     }
 }

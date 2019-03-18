@@ -10,9 +10,14 @@ namespace diplom_project.DB
 {
     public class Model
     {
-        public int Id { get; set; }
+        static int next;
+        public int Id { get; set; } = next++;
         public string Filename { get; set; }
         public string Hash { get; set; }
+
+        public string ShortName { get {
+                return Path.GetFileNameWithoutExtension(Filename);
+            } }
 
         public string GetHash()
         {
@@ -26,7 +31,6 @@ namespace diplom_project.DB
                 }
             }
         }
-
        
     }
 
