@@ -76,7 +76,6 @@ namespace diplom_project
 
         }
 
-
         public delegate void setlabel(int a);
         public delegate void setProgressBar(int b);
 
@@ -109,8 +108,16 @@ namespace diplom_project
 
             ccx =+ data.Count();
 
-            l.BeginInvoke(new setlabel(a => { l.Text = a.ToString(); }), new object[] { ccx });
+            //l.BeginInvoke(new setlabel(a => { l.Text = a.ToString(); }), new object[] { ccx });//1 вариант - а потом обернул в блок try catch
             //w.BeginInvoke(new setProgressBar( b => { w.Minimum = 0; w.Maximum = b; w.Value = 0; }), new object[] { ccx });
+            try
+            {
+                l.BeginInvoke(new setlabel(a => { l.Text = a.ToString(); }), new object[] { ccx });
+            }
+            catch
+            {
+                return;
+            }
 
             if (folders != null)
                 foreach (var f in folders)
@@ -125,7 +132,7 @@ namespace diplom_project
             List<Model> finderFiles = new List<Model>();
             foreach (var file in files)
             {
-                if( NameOfFind.Equals(file.ShortName))
+                if( NameOfFind == file.ShortName)
                 {
                     finderFiles.Add(file);
                 }
