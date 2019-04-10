@@ -49,14 +49,57 @@ namespace diplom_project
             //listBox1.DataSource = files;                       
 
             Thread t = new Thread(startThread);
-            t.Start();                
-                
-            //GetAll(d, files);
+            t.Start();
 
-            dataGridView1.DataSource = files;            
+            //GetAll(d, files);
+            
+            dataGridView1.DataSource = files;           
 
             //Connection c = new Connection();
             //var v = c.Files.ToArray();
+        }
+
+        /**
+         * 
+         * 1 qq 
+         * 2 ff 
+         * 3 rr
+         * 4 hh
+         * 5 qq
+         * 
+         * qq
+         *  1
+         *  5
+         * ff
+         *  2
+         * rr
+         *  3
+         * 
+         * 
+         **/
+
+        static List<Model> sortList(List<Model> ff)
+        {
+            var elements = ff.GroupBy(f => f.Hash).ToArray();
+
+            List<Model> sorterOne = new List<Model>();
+            List<Model> sorterTwo = new List<Model>();
+
+            foreach(var e in elements)
+            {
+                if (e.Count() > 1)
+                    foreach (var rr in e)
+                        sorterTwo.Add(rr);
+                else
+                    sorterOne.Add(e.First());
+            }
+
+            List<Model> mm = new List<Model>();
+            mm.AddRange(sorterTwo);
+            mm.AddRange(sorterOne);
+
+            return mm;
+
         }
         
         void startThread()
@@ -128,18 +171,26 @@ namespace diplom_project
         private void button1_Click(object sender, EventArgs e)
         {
             string NameOfFind = "";
-            NameOfFind = textBox1.ToString();
+            NameOfFind = textBox1.Text.ToLower();
             List<Model> finderFiles = new List<Model>();
-            foreach (var file in files)
-            {
-                if( NameOfFind == file.ShortName)
-                {
-                    finderFiles.Add(file);
-                }
-            }
+            //foreach (var file in files)
+            //{
+            //    if( NameOfFind == file.ShortName)
+            //    {
+            //        finderFiles.Add(file);
+            //    }
+            //}
 
-            dataGridView1.DataSource = finderFiles;
+            finderFiles = files.Where(f => f.ShortName.ToLower().Contains(NameOfFind)).ToList();
 
+            dataGridView1.DataSource = sortList(finderFiles);
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = "";
+            dataGridView1.DataSource = files;
         }
     }
 }
