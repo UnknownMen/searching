@@ -17,7 +17,8 @@ namespace diplom_project
     {
         List<Model> files = new List<Model>();
         static int ccx;
-        static Thread current;        
+        static Thread current;
+        static string pathFinder;
 
         static Label l;
         static Label l2;
@@ -32,7 +33,7 @@ namespace diplom_project
             w = progressBar1;
 
             //label1.Text = ccx.ToString();
-            
+
             //var d = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);//получили все папки в ProgramFiles
 
             //var files = Directory.GetFiles(d);//получили все файлы в ProgramFiles
@@ -46,14 +47,16 @@ namespace diplom_project
             //foreach (var i in files)
             //    listBox1.Items.Add(i);
 
-            //listBox1.DataSource = files;                       
+            //listBox1.DataSource = files;      
 
-            Thread t = new Thread(startThread);
-            t.Start();
+            //MainStart();
+
+           // Thread t = new Thread(startThread);
+            //t.Start();
 
             //GetAll(d, files);
             
-            dataGridView1.DataSource = files;           
+            dataGridView1.DataSource = "";           
 
             //Connection c = new Connection();
             //var v = c.Files.ToArray();
@@ -101,13 +104,28 @@ namespace diplom_project
             return mm;
 
         }
+
+        void MainStart()
+        {
+            Thread t = new Thread(startThread);
+            t.Start();
+            dataGridView1.DataSource = files;
+
+        }
         
         void startThread()
         {
-            var d = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);//получили все папки в ProgramFiles
-            GetAll(d, files);
+            string pa = pathFinder;
+            GetAll(pa, files);
 
-            w.BeginInvoke(new setProgressBar(b => { w.Minimum = 0; w.Maximum = b; }), new object[] { files.Count });
+            try
+            {
+                w.BeginInvoke(new setProgressBar(b => { w.Minimum = 0; w.Maximum = b; }), new object[] { files.Count });
+            }
+            catch
+            {
+                return;
+            }
 
             int i = 0;
             foreach (var file in files)
@@ -134,7 +152,7 @@ namespace diplom_project
                 foreach (var e in files)
                 {
                     var m = new Model { Filename = e };
-                    //var d = m.GetHash();
+                    //var d = m.GetHash();первоначальный вариант когда хеш считался сразу
                     int v = m.Id;
                     data.Add(m);                    
                 }
@@ -172,6 +190,11 @@ namespace diplom_project
         {
             string NameOfFind = "";
             NameOfFind = textBox1.Text.ToLower();
+            if (NameOfFind == "")
+            {
+                MessageBox.Show("Выберите место для поиска");
+                return;
+            }
             List<Model> finderFiles = new List<Model>();
             //foreach (var file in files)
             //{
@@ -191,6 +214,17 @@ namespace diplom_project
         {
             dataGridView1.DataSource = "";
             dataGridView1.DataSource = files;
+            textBox1.Text = "";
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog1.ShowDialog();
+
+            pathFinder = folderBrowserDialog1.SelectedPath;
+            label6.Text = pathFinder;
+
+            MainStart();
         }
     }
 }
