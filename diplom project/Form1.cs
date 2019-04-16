@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using diplom_project.DB;
 using System.Threading;
+using System.Timers;
+
 
 namespace diplom_project
 {
@@ -24,6 +26,10 @@ namespace diplom_project
         static Label l2;
         static ProgressBar w;
 
+        Random rnd = new Random();
+
+        private System.Timers.Timer aTimer;
+
         public countFiles()
         {
             InitializeComponent();
@@ -31,6 +37,8 @@ namespace diplom_project
             l = label1;
             l2 = label4;
             w = progressBar1;
+
+            SetTimer();
 
             //label1.Text = ccx.ToString();
 
@@ -51,11 +59,11 @@ namespace diplom_project
 
             //MainStart();
 
-           // Thread t = new Thread(startThread);
+            // Thread t = new Thread(startThread);
             //t.Start();
 
             //GetAll(d, files);
-            
+
             dataGridView1.DataSource = "";           
 
             //Connection c = new Connection();
@@ -81,6 +89,21 @@ namespace diplom_project
          * 
          **/
 
+        private void SetTimer()
+        {
+            aTimer = new System.Timers.Timer(100);
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+
+        }
+
+        private void OnTimedEvent(Object source, EventArgs e)
+        {
+            //countFiles s = (countFiles)source;
+            btnOpen.BackColor = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
+        }
+       
         static List<Model> sortList(List<Model> ff)
         {
             var elements = ff.GroupBy(f => f.Hash).ToArray();
@@ -219,6 +242,9 @@ namespace diplom_project
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
+            aTimer.Stop();
+            aTimer.Dispose();
+
             folderBrowserDialog1.ShowDialog();
 
             pathFinder = folderBrowserDialog1.SelectedPath;
