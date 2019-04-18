@@ -25,7 +25,7 @@ namespace diplom_project
         static Label l;
         static Label l2;
         static ProgressBar w;
-
+        
         Random rnd = new Random();
 
         private System.Timers.Timer aTimer;
@@ -132,8 +132,7 @@ namespace diplom_project
         {
             Thread t = new Thread(startThread);
             t.Start();
-            dataGridView1.DataSource = files;
-
+            //dataGridView1.DataSource = files; в данном варианте были ошибки с запонением и была добавлено условие в лямбду функцию стр159
         }
         
         void startThread()
@@ -155,9 +154,8 @@ namespace diplom_project
             {
                 file.Hash = file.GetHash();
                 i++;
-                w.BeginInvoke(new setProgressBar(b => { w.Value = b; l2.Text = b.ToString(); }), new object[] { i });
+                w.BeginInvoke(new setProgressBar(b => { w.Value = b; l2.Text = b.ToString(); if (b == w.Maximum) dataGridView1.DataSource = files; }), new object[] { i });
             }
-
         }
 
         public delegate void setlabel(int a);
@@ -169,7 +167,7 @@ namespace diplom_project
             string[] files = null;
             try
             {
-                files = Directory.GetFiles(dir); //получили все файлы в ProgramFiles
+                files = Directory.GetFiles(dir); //получили все файлы в папке
             } catch (Exception ex) { }
             if (files != null)
                 foreach (var e in files)
@@ -183,7 +181,7 @@ namespace diplom_project
             string[] folders = null;
             try
             {
-                folders = Directory.GetDirectories(dir);//получили все папки в ProgramFiles
+                folders = Directory.GetDirectories(dir);//получили все папки в выбранной директории
             }
             catch
             {
@@ -251,6 +249,12 @@ namespace diplom_project
             label6.Text = pathFinder;
 
             MainStart();
+        }
+               
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var element = files[e.RowIndex];
+            MessageBox.Show(element.ShortName);
         }
     }
 }
