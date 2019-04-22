@@ -54,6 +54,10 @@
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -64,10 +68,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShortName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -271,7 +271,38 @@
             this.dataGridView1.Size = new System.Drawing.Size(895, 524);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-           
+            // 
+            // Filename
+            // 
+            this.Filename.DataPropertyName = "filename";
+            this.Filename.HeaderText = "Filename";
+            this.Filename.Name = "Filename";
+            this.Filename.ReadOnly = true;
+            this.Filename.Width = 300;
+            // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "Id";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 50;
+            // 
+            // Hash
+            // 
+            this.Hash.DataPropertyName = "Hash";
+            this.Hash.HeaderText = "Hash";
+            this.Hash.Name = "Hash";
+            this.Hash.ReadOnly = true;
+            this.Hash.Width = 200;
+            // 
+            // ShortName
+            // 
+            this.ShortName.DataPropertyName = "ShortName";
+            this.ShortName.HeaderText = "ShortName";
+            this.ShortName.Name = "ShortName";
+            this.ShortName.ReadOnly = true;
+            this.ShortName.Width = 300;
             // 
             // label2
             // 
@@ -355,38 +386,6 @@
             this.label6.Size = new System.Drawing.Size(25, 13);
             this.label6.TabIndex = 14;
             this.label6.Text = "???";
-            // 
-            // Filename
-            // 
-            this.Filename.DataPropertyName = "filename";
-            this.Filename.HeaderText = "Filename";
-            this.Filename.Name = "Filename";
-            this.Filename.ReadOnly = true;
-            this.Filename.Width = 300;
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "Id";
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 50;
-            // 
-            // Hash
-            // 
-            this.Hash.DataPropertyName = "Hash";
-            this.Hash.HeaderText = "Hash";
-            this.Hash.Name = "Hash";
-            this.Hash.ReadOnly = true;
-            this.Hash.Width = 200;
-            // 
-            // ShortName
-            // 
-            this.ShortName.DataPropertyName = "ShortName";
-            this.ShortName.HeaderText = "ShortName";
-            this.ShortName.Name = "ShortName";
-            this.ShortName.ReadOnly = true;
-            this.ShortName.Width = 300;
             // 
             // countFiles
             // 

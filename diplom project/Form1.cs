@@ -11,6 +11,7 @@ using System.IO;
 using diplom_project.DB;
 using System.Threading;
 using System.Timers;
+using System.Diagnostics;
 
 
 namespace diplom_project
@@ -64,7 +65,7 @@ namespace diplom_project
 
             //GetAll(d, files);
 
-            dataGridView1.DataSource = "";           
+            //dataGridView1.DataSource = "";           
 
             //Connection c = new Connection();
             //var v = c.Files.ToArray();
@@ -132,7 +133,7 @@ namespace diplom_project
         {
             Thread t = new Thread(startThread);
             t.Start();
-            //dataGridView1.DataSource = files; в данном варианте были ошибки с запонением и была добавлено условие в лямбду функцию стр159
+            //dataGridView1.DataSource = files; в данном варианте были ошибки с запонением и была добавлено условие в лямбду функцию стр157
         }
         
         void startThread()
@@ -233,13 +234,20 @@ namespace diplom_project
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = "";
+            //dataGridView1.DataSource = null;
             dataGridView1.DataSource = files;
             textBox1.Text = "";
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.DataSource != null)
+            {
+                List<Model> temp = new List<Model>();                
+                dataGridView1.DataSource = temp;
+                ccx = 0;
+                files.Clear();
+            }
             aTimer.Stop();
             aTimer.Dispose();
 
@@ -254,7 +262,16 @@ namespace diplom_project
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var element = files[e.RowIndex];
-            MessageBox.Show(element.ShortName);
+
+            ProcessStartInfo pi = new ProcessStartInfo(element.Filename);
+            pi.Arguments = Path.GetFileName(element.Filename);
+            pi.UseShellExecute = true;
+            pi.WorkingDirectory = Path.GetDirectoryName(element.Filename);
+            pi.FileName = element.Filename;
+            pi.Verb = "OPEN";
+            Process.Start(pi);
+
+            //MessageBox.Show(element.ShortName);
         }
     }
 }
