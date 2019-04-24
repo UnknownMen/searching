@@ -10,7 +10,7 @@ namespace diplom_project.DB
 {
     public class Model
     {
-        static int next;
+        public static int next;
         public int Id { get; set; } = next++;
         public string Filename { get; set; }
         public string Hash { get; set; }
@@ -20,8 +20,7 @@ namespace diplom_project.DB
             } }
 
         public string GetHash()
-        {
-           
+        {           
             using (var md5 = MD5.Create())
             {
                 using (var stream = File.OpenRead(Filename))

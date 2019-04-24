@@ -243,7 +243,8 @@ namespace diplom_project
         {
             if (dataGridView1.DataSource != null)
             {
-                List<Model> temp = new List<Model>();                
+                List<Model> temp = new List<Model>();
+                Model.next = 0;
                 dataGridView1.DataSource = temp;
                 ccx = 0;
                 files.Clear();
