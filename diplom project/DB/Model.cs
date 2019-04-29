@@ -19,8 +19,21 @@ namespace diplom_project.DB
                 return Path.GetFileNameWithoutExtension(Filename);
             } }
 
-        public string GetHash()
-        {           
+        public string GetHash32()
+        {
+            return new Crc32().Get(Filename);
+            //using (var md5 = MD5.Create())
+            //{
+            //    using (var stream = File.OpenRead(Filename))
+            //    {
+            //        var hash = md5.ComputeHash(stream);
+            //        return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+            //    }
+            //}
+        }
+
+        public string GetHashMD5()
+        {
             using (var md5 = MD5.Create())
             {
                 using (var stream = File.OpenRead(Filename))
@@ -30,7 +43,7 @@ namespace diplom_project.DB
                 }
             }
         }
-       
+
     }
 
    

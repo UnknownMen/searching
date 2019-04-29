@@ -68,6 +68,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -387,11 +388,23 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "???";
             // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Items.AddRange(new object[] {
+            "MD5",
+            "Crc32"});
+            this.listBox2.Location = new System.Drawing.Point(549, 638);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(120, 17);
+            this.listBox2.TabIndex = 15;
+            // 
             // countFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(921, 700);
+            this.Controls.Add(this.listBox2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnOpen);
@@ -458,6 +471,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hash;
         private System.Windows.Forms.DataGridViewTextBoxColumn ShortName;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }
 

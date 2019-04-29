@@ -26,6 +26,7 @@ namespace diplom_project
         static Label l;
         static Label l2;
         static ProgressBar w;
+        static string NameOfHash;
         
         Random rnd = new Random();
 
@@ -38,6 +39,8 @@ namespace diplom_project
             l = label1;
             l2 = label4;
             w = progressBar1;
+
+
 
             SetTimer();
 
@@ -133,7 +136,7 @@ namespace diplom_project
         {
             Thread t = new Thread(startThread);
             t.Start();
-            //dataGridView1.DataSource = files; в данном варианте были ошибки с запонением и была добавлено условие в лямбду функцию стр157
+            //dataGridView1.DataSource = files; в данном варианте были ошибки с запонением и была добавлено условие в лямбду функцию стр158
         }
         
         void startThread()
@@ -153,7 +156,8 @@ namespace diplom_project
             int i = 0;
             foreach (var file in files)
             {
-                file.Hash = file.GetHash();
+                if (NameOfHash == "MD5") file.Hash = file.GetHashMD5();
+                else { file.Hash = file.GetHash32(); }
                 i++;
                 w.BeginInvoke(new setProgressBar(b => { w.Value = b; l2.Text = b.ToString(); if (b == w.Maximum) dataGridView1.DataSource = files; }), new object[] { i });
             }
@@ -253,6 +257,8 @@ namespace diplom_project
             aTimer.Dispose();
 
             folderBrowserDialog1.ShowDialog();
+
+            NameOfHash = listBox2.Items.ToString();
 
             pathFinder = folderBrowserDialog1.SelectedPath;
             label6.Text = pathFinder;
