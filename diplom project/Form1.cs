@@ -39,9 +39,9 @@ namespace diplom_project
             l = label1;
             l2 = label4;
             w = progressBar1;
-
-
-
+            NameOfHash = "";
+            comboBox1.Text = comboBox1.Items[1].ToString();
+            
             SetTimer();
 
             //label1.Text = ccx.ToString();
@@ -213,7 +213,7 @@ namespace diplom_project
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        {            
             string NameOfFind = "";
             NameOfFind = textBox1.Text.ToLower();
             if (NameOfFind == "")
@@ -244,7 +244,7 @@ namespace diplom_project
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
-        {
+        {            
             if (dataGridView1.DataSource != null)
             {
                 List<Model> temp = new List<Model>();
@@ -257,8 +257,9 @@ namespace diplom_project
             aTimer.Dispose();
 
             folderBrowserDialog1.ShowDialog();
-
-            NameOfHash = listBox2.Items.ToString();
+                        
+            Object selectedItem = comboBox1.SelectedItem;
+            NameOfHash = selectedItem.ToString();           
 
             pathFinder = folderBrowserDialog1.SelectedPath;
             label6.Text = pathFinder;
@@ -279,6 +280,12 @@ namespace diplom_project
             Process.Start(pi);
 
             //MessageBox.Show(element.ShortName);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Saver sa = new Saver();
+            sa.Save(files);
         }
     }
 }

@@ -235,6 +235,7 @@
   <ItemGroup>
     <Compile Include="Crc32.cs" />
     <Compile Include="DB\Connection.cs" />
+    <Compile Include="DB\Saver.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

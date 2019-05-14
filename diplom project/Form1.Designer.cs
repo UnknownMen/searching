@@ -68,7 +68,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -388,23 +389,35 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "???";
             // 
-            // listBox2
+            // comboBox1
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Items.AddRange(new object[] {
-            "MD5",
-            "Crc32"});
-            this.listBox2.Location = new System.Drawing.Point(549, 638);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(120, 17);
-            this.listBox2.TabIndex = 15;
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Crc32",
+            "MD5"});
+            this.comboBox1.Location = new System.Drawing.Point(551, 632);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 16;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(342, 631);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "save";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // countFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(921, 700);
-            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnOpen);
@@ -471,7 +484,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hash;
         private System.Windows.Forms.DataGridViewTextBoxColumn ShortName;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button3;
     }
 }
 
