@@ -9,7 +9,6 @@ namespace diplom_project.DB
 {
     class Saver
     {
-        //List<Model> files = new List<Model>();
         BinaryWriter bw;
         BinaryReader br;
 
@@ -17,7 +16,7 @@ namespace diplom_project.DB
         {
             try
             {
-                bw = new BinaryWriter(new FileStream(@"C:\Savefolder\mydata.txt", FileMode.Append));
+                bw = new BinaryWriter(new FileStream(@"C:\Temp2\mydata.txt", FileMode.Append));
             }
             catch (IOException e)
             {
