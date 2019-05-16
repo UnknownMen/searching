@@ -25,11 +25,13 @@ namespace diplom_project.DB
             }
             try
             {
+                bw.Write(DateTime.Now.ToString());
+
                 foreach(var file in files)
                 {
                     bw.Write(file.Id);
-                    bw.Write(file.Filename);
-                    bw.Write(file.Hash);
+                    //bw.Write(file.Filename);
+                    //bw.Write(file.Hash);
                     bw.Write(file.ShortName);
                 }
             }
