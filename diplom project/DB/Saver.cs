@@ -11,6 +11,8 @@ namespace diplom_project.DB
 {    
     class Saver
     {
+        static public string pathWithEnv = @"%USERPROFILE%\mydata.json";
+        static public string filePath = Environment.ExpandEnvironmentVariables(pathWithEnv);
         //BinaryWriter bw;
         //BinaryReader br;
 
@@ -48,9 +50,9 @@ namespace diplom_project.DB
         DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Model>));
 
         public void Save(List<Model> files)
-        {            
-
-            using (FileStream fs = new FileStream(@"C:\Temp2\mydata.json", FileMode.Append))
+        {           
+            //to do проверку, если нет такого файла - создать, иначе добавить
+            using (FileStream fs = new FileStream(filePath, FileMode.Create))
             {                
                 jsonFormatter.WriteObject(fs, files);
             }
@@ -60,13 +62,14 @@ namespace diplom_project.DB
         public List<Model> Write()
         {
             List < Model > rew = new List<Model>();
-            using (FileStream fs = new FileStream(@"C:\Temp2\mydata.json", FileMode.OpenOrCreate))
+            //сделать проверку на существование
+            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
             {
                 rew = (List<Model>)jsonFormatter.ReadObject(fs);
                 
             }
-
             return rew;
+
         }
 
     }

@@ -287,5 +287,16 @@ namespace diplom_project
             Saver sa = new Saver();
             sa.Save(files);
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            List<Model> savedFiles = new List<Model>();
+            Saver sa = new Saver();
+            savedFiles = sa.Write();
+            FormforSave f = new FormforSave();
+            f.Show();
+            f.dataGridViewForSave.DataSource = savedFiles;
+
+        }
     }
 }

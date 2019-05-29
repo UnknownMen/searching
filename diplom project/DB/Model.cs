@@ -21,15 +21,7 @@ namespace diplom_project.DB
 
         public string GetHash32()
         {
-            return new Crc32().Get(Filename);
-            //using (var md5 = MD5.Create())
-            //{
-            //    using (var stream = File.OpenRead(Filename))
-            //    {
-            //        var hash = md5.ComputeHash(stream);
-            //        return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-            //    }
-            //}
+            return new Crc32().Get(Filename);            
         }
 
         public string GetHashMD5()
